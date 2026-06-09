@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rest-app-deployment
+  labels:
+    app: rest-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: rest-app
+  template:
+    metadata:
+      labels:
+        app: rest-app
+    spec:
+      containers:
+      - name: rest-app
+        image: rest-app:local # Matches our local Minikube build tag
+        imagePullPolicy: Never  # CRUCIAL: Forces Kubernetes to pull directly from Minikube's local cache
+        ports:
+        - containerPort: 8080
